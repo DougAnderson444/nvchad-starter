@@ -78,42 +78,19 @@ return {
 
   { --override nvChad's telescope settings
     "nvim-telescope/telescope.nvim",
-    opts = function()
-      local conf = require "nvchad.configs.telescope"
-      conf.defaults.mappings.i = {
-        ["<C-j>"] = require("telescope.actions").move_selection_next,
-        ["<Esc>"] = require("telescope.actions").close,
-      }
-      conf.defaults.file_ignore_patterns = { "node_modules/", ".git", "docs/", "target/", "package-lock.json" }
-
-      return conf
-    end,
+    opts = require "configs.telescope",
   },
 
-  {
+  { -- for just files
     "NoahTheDuke/vim-just",
     ft = { "just" },
   },
 
-  -- {
-  --   "saecki/crates.nvim",
-  --   tag = "stable",
-  --   config = function()
-  --     require("crates").setup {
-  --       completion = {
-  --         cmp = {
-  --           enabled = true,
-  --         },
-  --         crates = {
-  --           enabled = true, -- disabled by default
-  --           max_results = 8, -- The maximum number of search results to display
-  --           min_chars = 3, -- The minimum number of charaters to type before completions begin appearing
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
-  --
+  { --override nvChad's nvim-tree settings
+    "nvim-tree/nvim-tree.lua",
+    opts = require "configs.nvimtree",
+  },
+
   {
     "hrsh7th/nvim-cmp",
     dependencies = {

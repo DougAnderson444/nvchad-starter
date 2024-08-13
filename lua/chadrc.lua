@@ -43,6 +43,17 @@ M.ui = {
         local cursor = "%#St_pos_icon# %#St_pos_text# %l:%c "
         return cursor
       end,
+      -- add path to file portion of statusline
+      file = function()
+        local x = utils.file()
+        local name = x[2] .. " "
+        local path = vim.fn.expand "%:p" -- vim.api.nvim_buf_get_name(0):match "^.*/"
+        if not path then
+          return "%#St_file# " .. x[1] .. name .. "%#St_file_sep#" .. sep_r
+        end
+        path = path:sub(2) -- remove leading "/" from path
+        return "%#St_file#" .. path .. "%#St_file_sep#" .. sep_r
+      end,
     },
   },
   cmp = {

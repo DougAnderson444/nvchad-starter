@@ -58,6 +58,7 @@ local opts = {
       -- rust-analyzer language server configuration
       ["rust-analyzer"] = {
         cargo = {
+          allTargets = true,
           allFeatures = true,
           loadOutDirsFromCheck = true,
           buildScripts = {

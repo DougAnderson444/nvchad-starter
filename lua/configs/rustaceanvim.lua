@@ -33,6 +33,13 @@ local opts = {
         vim.cmd.RustLsp "codeAction"
       end, { desc = "Code Action", buffer = bufnr })
 
+      vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+      vim.keymap.set("n", "<leader>of", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+
+      vim.keymap.set("n", "<leader>cd", function()
+        vim.cmd.RustLsp "renderDiagnostic"
+      end, { desc = "Rust Diagnostic", buffer = bufnr })
+
       vim.keymap.set("n", "<leader>dr", function()
         vim.cmd.RustLsp "debuggables"
       end, { desc = "Rust Debuggables", buffer = bufnr })
@@ -53,24 +60,26 @@ local opts = {
       vim.lsp.handlers["textDocument/codeAction"] = vim.lsp.with(vim.lsp.buf.code_action, {
         border = "rounded",
       })
+
+      vim.api.nvim_set_hl(0, "@lsp.type.parameter", { fg = "#ff7070" })
     end,
     default_settings = {
       -- rust-analyzer language server configuration
       ["rust-analyzer"] = {
         cargo = {
           allTargets = true,
+          target = nil, -- "wasm32-unknown-unknown",
           allFeatures = true,
+          features = "all",
           loadOutDirsFromCheck = true,
           buildScripts = {
             enable = true,
           },
         },
-        -- Add clippy lints for Rust.
-        checkOnSave = true,
         procMacro = {
           enable = true,
           ignored = {
-            ["async-trait"] = { "async_trait" },
+            -- ["async-trait"] = { "async_trait" },
             ["napi-derive"] = { "napi" },
             ["async-recursion"] = { "async_recursion" },
           },

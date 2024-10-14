@@ -5,7 +5,7 @@ local lspconfig = require "lspconfig"
 
 -- EXAMPLE
 -- taplo was installed via `cargo install`, so mason is not needed for it
-local servers = { "html", "cssls", "taplo" }
+local servers = { "html", "cssls", "taplo", "svelte" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
@@ -40,8 +40,8 @@ lspconfig.taplo.keys = {
 
 lspconfig.tailwindcss.setup {
   cmd = { "tailwindcss-language-server", "--stdio", "BufEnter" },
-  on_attach = on_attach,
-  capabilities = capabilities,
+  on_attach = nvlsp.on_attach,
+  capabilities = nvlsp.capabilities,
   filetypes = {
     "css",
     "scss",

@@ -8,4 +8,8 @@ opts.git.ignore = false
 opts.filters = opts.filters or {}
 opts.filters.dotfiles = false -- set the false to show dotfiles
 
+-- show diagnostics
+opts.diagnostics = opts.diagnostics or {}
+opts.diagnostics.enable = true
+
 return opts

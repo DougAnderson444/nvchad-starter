@@ -13,3 +13,12 @@ vim.api.nvim_create_autocmd("WinEnter", {
     vim.cmd "startinsert"
   end,
 })
+
+local augroup = vim.api.nvim_create_augroup("SvelteComments", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "svelte",
+  group = augroup,
+  callback = function()
+    vim.bo.commentstring = "<!-- %s -->"
+  end,
+})

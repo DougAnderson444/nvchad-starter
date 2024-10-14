@@ -105,27 +105,26 @@ return {
               max_results = 8, -- The maximum number of search results to display
               min_chars = 3, -- The minimum number of charaters to type before completions begin appearing
             },
-            lsp = {
-              enabled = true,
-              on_attach = function(client, bufnr)
-                -- the same on_attach function as for your other lsp's
-                local nvlsp = require "nvchad.configs.lspconfig"
-                nvlsp.on_attach(client, bufnr)
-              end,
-              actions = true,
-              completion = true,
-              hover = true,
-            },
           },
         },
       },
     },
     opts = function(_, opts)
+      local cmp = require "cmp"
       opts.sources = opts.sources or {}
       table.insert(opts.sources, { name = "crates" })
       table.insert(opts.sources, { name = "tailwindcss" })
-      -- opts.completion = opts.completion or {}
-      -- opts.completion.completeopt = "menu,menuone,noselect"
+      opts.completion = opts.completion or {}
+      opts.completion.completeopt = "menu,menuone,noselect,noinsert"
+      -- Override NvChad default Mapping
+      opts.mapping = opts.mapping or {}
+      opts.mapping = vim.tbl_extend("force", opts.mapping, {
+        ["<CR>"] = cmp.mapping.confirm {
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        },
+      })
+      return opts
     end,
   },
 

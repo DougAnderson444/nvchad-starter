@@ -7,6 +7,8 @@ local M = {}
 local utils = require "nvchad.stl.utils"
 local sep_r = " "
 
+-- local colors = require("base46").get_theme_tb "base_30"
+
 M.ui = {
   FloatBorder = { fg = "green" }, -- works
   NormalFloat = { fg = "green" }, -- works
@@ -73,6 +75,9 @@ M.base46 = {
     FloatBorder = { fg = "green" },
     NormalFloat = { fg = "green" },
     CmpDocBorder = { fg = "grey" }, -- completion docs border color
+    -- Rust overrides:
+    -- ["@lsp.type.parameter"] = { fg = "red" },
+    -- ["@lsp.type.function"] = { fg = "green" },
   },
   hl_add = {
     FloatBorder = { fg = "green" },

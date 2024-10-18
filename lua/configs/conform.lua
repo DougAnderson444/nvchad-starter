@@ -3,9 +3,9 @@ local options = {
     lua = { "stylua" },
     css = { "prettier" },
     html = { "prettier" },
-    svelte = { { "prettierd", "prettier" } },
-    javascript = { { "prettierd", "prettier" } },
-    typescript = { { "prettierd", "prettier" } },
+    svelte = { "prettierd", "prettier" },
+    javascript = { "prettierd", "prettier" },
+    typescript = { "prettierd", "prettier" },
     toml = { "taplo" },
   },
 

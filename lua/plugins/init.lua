@@ -139,8 +139,15 @@ return {
         "tailwindcss-language-server",
         "dot-language-server",
         "yaml-language-server",
+        "pest-language-server",
       },
     },
+  },
+
+  -- pest syntax highlighting
+  {
+    "pest-parser/pest.vim",
+    ft = "pest",
   },
 
   -- { -- large language model aka free copilot.

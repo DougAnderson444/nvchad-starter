@@ -30,7 +30,7 @@ copilot.setup {
     },
   },
   filetypes = {
-    yaml = false,
+    yaml = true,
     markdown = true, -- default: false,
     help = false,
     gitcommit = false,

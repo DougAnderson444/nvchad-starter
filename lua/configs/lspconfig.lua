@@ -5,7 +5,7 @@ local lspconfig = require "lspconfig"
 
 -- EXAMPLE
 -- taplo was installed via `cargo install`, so mason is not needed for it
-local servers = { "html", "cssls", "taplo", "svelte", "pest_ls" }
+local servers = { "html", "cssls", "taplo", "svelte", "pest_ls", "yamlls" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config

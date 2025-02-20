@@ -22,3 +22,10 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.commentstring = "<!-- %s -->"
   end,
 })
+
+-- Associate .rhai files with the JavaScript parser
+vim.filetype.add {
+  extension = {
+    rhai = "javascript",
+  },
+}

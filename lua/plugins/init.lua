@@ -20,6 +20,7 @@ return {
     ft = "rust",
     opts = require "configs.rustaceanvim",
     config = function(_, opts)
+      vim.g.rust_analyzer_cargo_target = nil
       vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
     end,
   },
@@ -96,6 +97,7 @@ return {
     dependencies = {
       {
         "saecki/crates.nvim",
+        tag = "stable",
         event = { "BufRead Cargo.toml" },
         opts = {
           completion = {

@@ -1,4 +1,12 @@
 return {
+  -- env loading
+  {
+    "tpope/vim-dotenv",
+    config = function()
+      require("dotenv").setup()
+    end,
+  },
+
   {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- uncomment for format on save
@@ -39,6 +47,25 @@ return {
       -- The mapping is set to other key, see custom/lua/mappings
       -- or run <leader>ch to see copilot mapping section
     end,
+  },
+
+  -- markdown for codecopanion
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" },
+    opts = require "configs.rendermarkdown",
+  },
+
+  -- code companion
+  {
+    "olimorris/codecompanion.nvim",
+    config = true,
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = require "configs.codecompanion",
   },
 
   {

@@ -39,7 +39,7 @@ lspconfig.taplo.keys = {
 }
 
 lspconfig.tailwindcss.setup {
-  cmd = { "tailwindcss-language-server", "--stdio", "BufEnter" },
+  cmd = { "tailwindcss-language-server", "--stdio" }, -- Remove "BufEnter" (it's not a valid parameter)
   on_attach = nvlsp.on_attach,
   capabilities = nvlsp.capabilities,
   filetypes = {
@@ -57,18 +57,37 @@ lspconfig.tailwindcss.setup {
     "rust",
     "markdown",
   },
-  init_options = {
-    userLanguages = {
-      rust = "html",
+  settings = {
+    tailwindCSS = {
+      includeLanguages = {
+        rust = "html", -- This is the correct way to map Rust to HTML
+      },
+      classAttributes = {
+        "class",
+        "className",
+        "classList",
+        "ngClass",
+      },
+      experimental = {
+        classRegex = {
+          -- This pattern specifically targets Dioxus class: "..." syntax
+          'class:\\s*"([^"]*)"',
+          -- Additional patterns for other variations
+          'classes:\\s*"([^"]*)"',
+          'class_name:\\s*"([^"]*)"',
+        },
+      },
+      validate = true,
     },
   },
-  -- Here If any of files from list will exist tailwind lsp will activate.
+  -- Include Rust project identifiers
   root_dir = lspconfig.util.root_pattern(
     "tailwind.config.js",
     "tailwind.config.ts",
     "postcss.config.js",
     "postcss.config.ts",
-    "windi.config.ts"
+    "windi.config.ts",
+    "Cargo.toml" -- Add this to detect Rust projects
   ),
 }
 

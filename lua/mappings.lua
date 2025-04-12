@@ -27,4 +27,4 @@ map("v", "<C-x>", "x", { desc = "Cut to clipboard" })
 map("v", "<C-z>", "<ESC>ua", { desc = "Undo" })
 
 -- <ESC> to exit terminal mode
-map("t", "<ESC>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+map("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

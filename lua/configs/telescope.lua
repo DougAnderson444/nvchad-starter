@@ -5,4 +5,7 @@ conf.defaults.mappings.i = {
 }
 conf.defaults.file_ignore_patterns = { "node_modules/", ".git", "docs/", "target/", "package-lock.json" }
 
+-- no border
+conf.defaults.border = false
+
 return conf

@@ -4,6 +4,7 @@ require "nvchad.options"
 
 -- local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!
+vim.o.winborder = "rounded"
 
 vim.diagnostic.config { float = { border = "rounded", source = "if_many" } }
 
@@ -27,5 +28,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.filetype.add {
   extension = {
     rhai = "javascript",
+    wac = "wit",
   },
 }

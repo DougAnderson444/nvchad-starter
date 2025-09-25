@@ -1,4 +1,4 @@
-local chosen_adapter = "copilot" -- "gemini" --
+local chosen_adapter = "gemini" -- "copilot" --
 
 local options = {
   display = {
@@ -13,60 +13,63 @@ local options = {
     },
   },
   adapters = {
-    -- anthropic = function()
-    --   return require("codecompanion.adapters").extend("anthropic", {
-    --     env = {
-    --       api_key = "cmd:op read op://personal/Anthropic_API/credential --no-newline",
-    --     },
-    --   })
-    -- end,
-    copilot = function()
-      return require("codecompanion.adapters").extend("copilot", {
-        schema = {
-          model = {
-            default = "claude-3.7-sonnet",
-          },
-        },
-      })
-    end,
-    -- deepseek = function()
-    --   return require("codecompanion.adapters").extend("deepseek", {
-    --     env = {
-    --       api_key = "cmd:op read op://personal/DeepSeek_API/credential --no-newline",
-    --     },
-    --   })
-    -- end,
-    gemini = function()
-      return require("codecompanion.adapters").extend("gemini", {
-        schema = {
-          model = {
-            default = "gemini-2.5-flash-lite-preview-06-17",
-            choices = {
-              -- https://ai.google.dev/gemini-api/docs/rate-limits#free-tier
-              -- model = "gemini-2.5-pro", -- 100 requests per day free
-              -- model = "gemini-2.5-flash", -- 250 requests per day free
-              -- model = "gemini-2.5-flash-lite-preview-06-17", -- 1k requests per day free
-              -- This will merge with the base Gemini choices
-              ["gemini-2.5-flash-lite-preview-06-17"] = { opts = { can_reason = true, has_vision = true } },
+    http = {
+      -- anthropic = function()
+      --   return require("codecompanion.adapters").extend("anthropic", {
+      --     env = {
+      --       api_key = "cmd:op read op://personal/Anthropic_API/credential --no-newline",
+      --     },
+      --   })
+      -- end,
+      copilot = function()
+        return require("codecompanion.adapters").extend("copilot", {
+          schema = {
+            model = {
+              default = "claude-3.7-sonnet",
             },
           },
-        },
-        env = {
-          api_key = function()
-            return os.getenv "GEMINI_API_KEY"
-          end,
-        },
-      })
-    end,
-    ollama = function()
-      return require("codecompanion.adapters").extend("ollama", {
-        schema = {
-          num_ctx = {
-            default = 20000,
+        })
+      end,
+      -- deepseek = function()
+      --   return require("codecompanion.adapters").extend("deepseek", {
+      --     env = {
+      --       api_key = "cmd:op read op://personal/DeepSeek_API/credential --no-newline",
+      --     },
+      --   })
+      -- end,
+      gemini = function()
+        return require("codecompanion.adapters").extend("gemini", {
+          schema = {
+            model = {
+              -- https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-flash-lite#2.5-flash-lite
+              default = "gemini-2.5-flash-lite",
+              choices = {
+                -- https://ai.google.dev/gemini-api/docs/rate-limits#free-tier
+                -- model = "gemini-2.5-pro", -- 100 requests per day free
+                -- model = "gemini-2.5-flash", -- 250 requests per day free
+                -- model = "gemini-2.5-flash-lite-preview-06-17", -- 1k requests per day free
+                -- This will merge with the base Gemini choices
+                ["gemini-2.5-flash-lite-preview-06-17"] = { opts = { can_reason = true, has_vision = true } },
+              },
+            },
           },
-        },
-      })
-    end,
+          env = {
+            api_key = function()
+              return os.getenv "GEMINI_API_KEY"
+            end,
+          },
+        })
+      end,
+      ollama = function()
+        return require("codecompanion.adapters").extend("ollama", {
+          schema = {
+            num_ctx = {
+              default = 20000,
+            },
+          },
+        })
+      end,
+    },
   },
   strategies = {
     chat = {

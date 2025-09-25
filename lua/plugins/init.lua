@@ -34,9 +34,11 @@ return {
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
-    config = function()
-      require "configs.lspconfig"
-    end,
+    -- The custom config function is removed.
+    -- Ensure your lua/configs/lspconfig.lua file is updated to use vim.lsp.config()
+    -- instead of the deprecated require('lspconfig') API.
+    -- The configurations themselves might now be automatically discovered by vim.lsp.config()
+    -- if they are placed in lua/lsp/ or provided by this plugin in a discoverable format.
   },
 
   {

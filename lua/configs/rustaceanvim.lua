@@ -108,6 +108,7 @@ local opts = {
           buildScripts = {
             enable = true,
           },
+          targetDir = "target/analyzer",
         },
         procMacro = {
           enable = true,

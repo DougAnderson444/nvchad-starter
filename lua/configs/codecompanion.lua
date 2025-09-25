@@ -1,3 +1,5 @@
+local chosen_adapter = "copilot" -- "gemini" --
+
 local options = {
   display = {
     chat = {
@@ -34,13 +36,28 @@ local options = {
     --     },
     --   })
     -- end,
-    -- gemini = function()
-    --   return require("codecompanion.adapters").extend("gemini", {
-    --     env = {
-    --       api_key = "cmd:op read op://personal/Gemini_API/credential --no-newline",
-    --     },
-    --   })
-    -- end,
+    gemini = function()
+      return require("codecompanion.adapters").extend("gemini", {
+        schema = {
+          model = {
+            default = "gemini-2.5-flash-lite-preview-06-17",
+            choices = {
+              -- https://ai.google.dev/gemini-api/docs/rate-limits#free-tier
+              -- model = "gemini-2.5-pro", -- 100 requests per day free
+              -- model = "gemini-2.5-flash", -- 250 requests per day free
+              -- model = "gemini-2.5-flash-lite-preview-06-17", -- 1k requests per day free
+              -- This will merge with the base Gemini choices
+              ["gemini-2.5-flash-lite-preview-06-17"] = { opts = { can_reason = true, has_vision = true } },
+            },
+          },
+        },
+        env = {
+          api_key = function()
+            return os.getenv "GEMINI_API_KEY"
+          end,
+        },
+      })
+    end,
     ollama = function()
       return require("codecompanion.adapters").extend("ollama", {
         schema = {
@@ -53,13 +70,14 @@ local options = {
   },
   strategies = {
     chat = {
-      adapter = "copilot",
+      adapter = chosen_adapter,
       roles = {
-        user = "DougAnderson444",
+        user = "DougAnderson444@gmail.com -- " .. chosen_adapter,
       },
     },
     inline = {
-      adapter = "copilot",
+      adapter = "gemini",
+      model = "gemini-2.5-flash",
     },
   },
 }

@@ -24,6 +24,23 @@ end
 --   capabilities = nvlsp.capabilities,
 -- }
 
+lspconfig.yamlls.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  settings = {
+    yaml = {
+      schemas = {
+        ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "**/.gitlab-ci.yml",
+      },
+      customTags = {
+        "!reference sequence", -- Add GitLab's custom YAML tags
+      },
+      validate = true,
+    },
+  },
+}
+
 lspconfig.taplo.keys = {
   {
     "K",
@@ -72,6 +89,7 @@ lspconfig.tailwindcss.setup {
         classRegex = {
           -- This pattern specifically targets Dioxus class: "..." syntax
           'class:\\s*"([^"]*)"',
+          'class=\\s*"([^"]*)"',
           -- Additional patterns for other variations
           'classes:\\s*"([^"]*)"',
           'class_name:\\s*"([^"]*)"',

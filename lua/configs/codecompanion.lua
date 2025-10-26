@@ -1,4 +1,4 @@
-local chosen_adapter = "gemini" -- "copilot" --
+local chosen_adapter = "copilot" --"gemini" --
 
 local options = {
   display = {
@@ -25,7 +25,7 @@ local options = {
         return require("codecompanion.adapters").extend("copilot", {
           schema = {
             model = {
-              default = "claude-3.7-sonnet",
+              default = "gpt-4.1",
             },
           },
         })
@@ -55,7 +55,7 @@ local options = {
           },
           env = {
             api_key = function()
-              return os.getenv "GEMINI_API_KEY"
+              return os.getenv "GEMINI_API_KEY" -- set in ~/.bashrc or ~/.zshrc
             end,
           },
         })

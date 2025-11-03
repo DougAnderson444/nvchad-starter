@@ -1,4 +1,4 @@
-local chosen_adapter = "copilot" --"gemini" --
+local chosen_adapter = "copilot" -- "ollama" -- "gemini" --
 
 local options = {
   display = {
@@ -42,7 +42,7 @@ local options = {
           schema = {
             model = {
               -- https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-flash-lite#2.5-flash-lite
-              default = "gemini-2.5-flash-lite",
+              default = "gemini-2.5-flash",
               choices = {
                 -- https://ai.google.dev/gemini-api/docs/rate-limits#free-tier
                 -- model = "gemini-2.5-pro", -- 100 requests per day free
@@ -63,6 +63,11 @@ local options = {
       ollama = function()
         return require("codecompanion.adapters").extend("ollama", {
           schema = {
+            model = {
+              -- default = "deepseek-coder-v2:latest", -- best for Rust
+              -- default = "deepseek-coder:33b", -- More RAM, but better quality
+              default = "codellama:7b", -- very cpu friendly
+            },
             num_ctx = {
               default = 20000,
             },

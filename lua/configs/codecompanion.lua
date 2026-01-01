@@ -25,7 +25,10 @@ local options = {
         return require("codecompanion.adapters").extend("copilot", {
           schema = {
             model = {
-              default = "gpt-4.1",
+              -- default = "gpt-4.1",
+              -- default = "gpt-5-mini",
+              -- Anthropic Claude Sonnet 4.5
+              default = "claude-sonnet-4.5",
             },
           },
         })

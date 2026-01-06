@@ -1,5 +1,13 @@
 local chosen_adapter = "copilot" -- "ollama" -- "gemini" --
 
+-- copilot models
+local copilot_default_model_chosen = {
+  -- default = "gpt-4o", -- premium???
+  default = "gpt-4.1", -- not premium
+  -- default = "gpt-5",
+  -- default = "claude-sonnet-4.5",
+}
+
 local options = {
   display = {
     chat = {
@@ -24,12 +32,7 @@ local options = {
       copilot = function()
         return require("codecompanion.adapters").extend("copilot", {
           schema = {
-            model = {
-              -- default = "gpt-4.1",
-              -- default = "gpt-5-mini",
-              -- Anthropic Claude Sonnet 4.5
-              default = "claude-sonnet-4.5",
-            },
+            model = copilot_default_model_chosen,
           },
         })
       end,
@@ -83,7 +86,8 @@ local options = {
     chat = {
       adapter = chosen_adapter,
       roles = {
-        user = "DougAnderson444@gmail.com -- " .. chosen_adapter,
+        -- chosen model and chosen adapter passed here
+        user = "DougAnderson444 -- " .. copilot_default_model_chosen.default .. " on " .. chosen_adapter,
       },
     },
     inline = {

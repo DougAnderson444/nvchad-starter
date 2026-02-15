@@ -21,7 +21,7 @@ require("lazy").setup({
     branch = "v2.5",
     import = "nvchad.plugins",
   },
-  { import = "nvchad.blink.lazyspec" }, -- https://github.com/NvChad/NvChad/discussions/3244
+  -- { import = "nvchad.blink.lazyspec" }, -- https://github.com/NvChad/NvChad/discussions/3244
   { import = "plugins" },
 }, lazy_config)
 

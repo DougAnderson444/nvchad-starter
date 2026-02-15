@@ -2,10 +2,17 @@ local chosen_adapter = "copilot" -- "ollama" -- "gemini" --
 
 -- copilot models
 local copilot_default_model_chosen = {
-  -- default = "gpt-4o", -- premium???
   default = "gpt-4.1", -- not premium
-  -- default = "gpt-5",
-  -- default = "claude-sonnet-4.5",
+  -- Provide other model choices so CodeCompanion can present them in the model picker.
+  -- The change_adapter code accepts a models table where keys are model ids and values are
+  -- either nil or a table describing the model. Using string keys with nil value makes
+  -- CodeCompanion treat the set as a list of strings.
+  choices = {
+    ["gpt-4.1"] = nil,
+    ["gpt-4o"] = nil,
+    ["gpt-5"] = nil,
+    ["claude-sonnet-4.5"] = nil,
+  },
 }
 
 local options = {
@@ -22,27 +29,18 @@ local options = {
   },
   adapters = {
     http = {
-      -- anthropic = function()
-      --   return require("codecompanion.adapters").extend("anthropic", {
-      --     env = {
-      --       api_key = "cmd:op read op://personal/Anthropic_API/credential --no-newline",
-      --     },
-      --   })
-      -- end,
+      -- ensure model choices UI is enabled (default is true, be explicit)
+      opts = {
+        show_model_choices = true,
+      },
       copilot = function()
         return require("codecompanion.adapters").extend("copilot", {
           schema = {
-            model = copilot_default_model_chosen,
+            model = { default = "gpt-4.1" },
           },
+          models = { "gpt-4.1", "gpt-4o", "gpt-5", "claude-sonnet-4.5" },
         })
       end,
-      -- deepseek = function()
-      --   return require("codecompanion.adapters").extend("deepseek", {
-      --     env = {
-      --       api_key = "cmd:op read op://personal/DeepSeek_API/credential --no-newline",
-      --     },
-      --   })
-      -- end,
       gemini = function()
         return require("codecompanion.adapters").extend("gemini", {
           schema = {
@@ -51,10 +49,6 @@ local options = {
               default = "gemini-2.5-flash",
               choices = {
                 -- https://ai.google.dev/gemini-api/docs/rate-limits#free-tier
-                -- model = "gemini-2.5-pro", -- 100 requests per day free
-                -- model = "gemini-2.5-flash", -- 250 requests per day free
-                -- model = "gemini-2.5-flash-lite-preview-06-17", -- 1k requests per day free
-                -- This will merge with the base Gemini choices
                 ["gemini-2.5-flash-lite-preview-06-17"] = { opts = { can_reason = true, has_vision = true } },
               },
             },
@@ -63,6 +57,21 @@ local options = {
             api_key = function()
               return os.getenv "GEMINI_API_KEY" -- set in ~/.bashrc or ~/.zshrc
             end,
+          },
+        })
+      end,
+      qwen_navigator = function()
+        return require("codecompanion.adapters").extend("openai_compatible", {
+          name = "qwen",
+          url = "http://localhost:10501/v1/chat/completions",
+          schema = {
+            model = {
+              default = "qwen-coder",
+            },
+          },
+          handlers = {
+            -- Tool calling is handled automatically by OpenAI-compatible format
+            tools = true,
           },
         })
       end,
@@ -87,7 +96,7 @@ local options = {
       adapter = chosen_adapter,
       roles = {
         -- chosen model and chosen adapter passed here
-        user = "DougAnderson444 -- " .. copilot_default_model_chosen.default .. " on " .. chosen_adapter,
+        user = "DougAnderson444 -- " .. chosen_adapter,
       },
     },
     inline = {

@@ -104,7 +104,7 @@ return {
         "svelte",
         "toml",
         "ron", -- rust object notation
-
+        "yaml",
         -- low level
         "rust",
         "markdown",

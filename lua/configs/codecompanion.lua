@@ -118,6 +118,9 @@ local options = {
       roles = {
         user = "DougAnderson444 -- litellm",
       },
+      tools = {
+        default_tools = { "full_stack_dev" },
+      },
     },
     -- chat = {
     --   adapter = chosen_adapter,
@@ -126,13 +129,6 @@ local options = {
     --     user = "DougAnderson444 -- " .. chosen_adapter,
     --   },
     -- },
-    slash_commands = {
-      ["cmd_runner"] = {
-        callback = "strategies.chat.slash_commands.cmd_runner",
-        description = "Run terminal commands",
-        opts = { contains_code = true },
-      },
-    },
     -- Ensure the Agent is available
     agent = {
       enabled = true,

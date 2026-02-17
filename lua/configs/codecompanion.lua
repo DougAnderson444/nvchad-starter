@@ -75,6 +75,27 @@ local options = {
           },
         })
       end,
+      -- litellm adapter: enable tool handling so CodeCompanion will parse function calls
+      -- run:
+      -- litellm --model ollama_chat/qwen3-coder:30b --detailed_debug
+      litellm = function()
+        return require("codecompanion.adapters").extend("openai_compatible", {
+          name = "litellm",
+          env = {
+            url = "http://localhost:4000", -- LiteLLM base URL
+            api_key = "sk-1234", -- placeholder if required
+          },
+          schema = {
+            model = {
+              default = "ollama_chat/qwen3-coder:30b",
+            },
+          },
+          opts = {
+            tools = true,
+            can_reason = true,
+          },
+        })
+      end,
       ollama = function()
         return require("codecompanion.adapters").extend("ollama", {
           schema = {

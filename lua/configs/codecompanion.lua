@@ -114,11 +114,28 @@ local options = {
   },
   strategies = {
     chat = {
-      adapter = chosen_adapter,
+      adapter = "litellm",
       roles = {
-        -- chosen model and chosen adapter passed here
-        user = "DougAnderson444 -- " .. chosen_adapter,
+        user = "DougAnderson444 -- litellm",
       },
+    },
+    -- chat = {
+    --   adapter = chosen_adapter,
+    --   roles = {
+    --     -- chosen model and chosen adapter passed here
+    --     user = "DougAnderson444 -- " .. chosen_adapter,
+    --   },
+    -- },
+    slash_commands = {
+      ["cmd_runner"] = {
+        callback = "strategies.chat.slash_commands.cmd_runner",
+        description = "Run terminal commands",
+        opts = { contains_code = true },
+      },
+    },
+    -- Ensure the Agent is available
+    agent = {
+      enabled = true,
     },
     inline = {
       adapter = "gemini",

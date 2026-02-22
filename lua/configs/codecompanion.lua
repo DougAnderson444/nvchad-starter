@@ -2,7 +2,7 @@ local chosen_adapter = "copilot" -- "ollama" -- "gemini" --
 
 -- copilot models
 local copilot_default_model_chosen = {
-  default = "gpt-4.1", -- not premium
+  default = "gpt-5-mini", -- not premium
   -- Provide other model choices so CodeCompanion can present them in the model picker.
   -- The change_adapter code accepts a models table where keys are model ids and values are
   -- either nil or a table describing the model. Using string keys with nil value makes
@@ -36,7 +36,7 @@ local options = {
       copilot = function()
         return require("codecompanion.adapters").extend("copilot", {
           schema = {
-            model = { default = "gpt-4.1" },
+            model = { default = "gpt-5-mini" },
           },
           models = { "gpt-4.1", "gpt-4o", "gpt-5", "claude-sonnet-4.5" },
         })
@@ -89,6 +89,9 @@ local options = {
             model = {
               default = "ollama_chat/qwen3-coder:30b",
             },
+            temperature = {
+              default = 0,
+            },
           },
           opts = {
             tools = true,
@@ -107,28 +110,31 @@ local options = {
             num_ctx = {
               default = 20000,
             },
+            temperature = {
+              default = 0,
+            },
           },
         })
       end,
     },
   },
   strategies = {
-    chat = {
-      adapter = "litellm",
-      roles = {
-        user = "DougAnderson444 -- litellm",
-      },
-      tools = {
-        default_tools = { "full_stack_dev" },
-      },
-    },
     -- chat = {
-    --   adapter = chosen_adapter,
+    --   adapter = "litellm",
     --   roles = {
-    --     -- chosen model and chosen adapter passed here
-    --     user = "DougAnderson444 -- " .. chosen_adapter,
+    --     user = "DougAnderson444 -- litellm",
+    --   },
+    --   tools = {
+    --     default_tools = { "full_stack_dev" },
     --   },
     -- },
+    chat = {
+      adapter = chosen_adapter,
+      roles = {
+        -- chosen model and chosen adapter passed here
+        user = "DougAnderson444 -- " .. chosen_adapter,
+      },
+    },
     -- Ensure the Agent is available
     agent = {
       enabled = true,

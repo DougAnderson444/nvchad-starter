@@ -198,36 +198,32 @@ return {
     "pest-parser/pest.vim",
     ft = "pest",
   },
-
-  -- { -- large language model aka free copilot.
-  --   "huggingface/llm.nvim",
-  --   lazy = false,
-  --   opts = {
-  --     -- cf Setup
-  --     model = "starcoder2:latest",
-  --     backend = "ollama",
-  --     url = "http://localhost:11434", -- llm-ls uses "/api/generate"
-  --     tokens_to_clear = { "<|endoftext|>" },
-  --     -- cf https://github.com/ollama/ollama/blob/main/docs/api.md#parameters
-  --     request_body = {
-  --       -- Modelfile options for the model you use
-  --       options = {
-  --         temperature = 0.2,
-  --         top_p = 0.95,
-  --       },
-  --     },
-  --     fim = {
-  --       enabled = true,
-  --       prefix = "<fim_prefix>",
-  --       middle = "<fim_middle>",
-  --       suffix = "<fim_suffix>",
-  --     },
-  --     lsp = {
-  --       bin_path = vim.api.nvim_call_function("stdpath", { "data" }) .. "/mason/bin/llm-ls",
-  --     },
-  --     context_window = 8192,
-  --     enable_suggestions_on_startup = true,
-  --     enable_suggestions_on_files = "*", -- pattern matching syntax to enable suggestions on specific files, either a string or a list of strings
-  --   },
-  -- },
+  {
+    "coder/claudecode.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    opts = {
+      -- Use lcc as the claude binary so llama-server auto-starts when toggling Claude
+      terminal_cmd = vim.fn.expand "~/bin/lcc",
+    },
+    config = true,
+    keys = {
+      { "<leader>a", nil, desc = "AI/Claude Code" },
+      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+      {
+        "<leader>as",
+        "<cmd>ClaudeCodeTreeAdd<cr>",
+        desc = "Add file",
+        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+      },
+      -- Diff management
+      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+    },
+  },
 }
